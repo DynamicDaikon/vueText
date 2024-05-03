@@ -2,9 +2,13 @@
 import { ref, watch } from 'vue'
 const cocktailNo = ref(1)
 const priceMsg = ref('')
-watch(cocktailNo, (): void => {
-  priceMsg.value = getCocktailInfo(cocktailNo.value)
-})
+watch(
+  cocktailNo,
+  (): void => {
+    priceMsg.value = getCocktailInfo(cocktailNo.value)
+  },
+  { immediate: true }
+)
 
 setInterval((): void => {
   cocktailNo.value = Math.round(Math.random() * 3)
