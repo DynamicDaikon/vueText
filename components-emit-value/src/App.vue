@@ -27,6 +27,16 @@ const totalPoints = computed((): number => {
   return total
 })
 
+// Emitにより実行されるメソッド
+const onIncrementPoint = (id: number): void => {
+  // 処理関数のidに該当する会委員情報オブジェクトを取得。
+  const member = memberList.value.get(id)
+  //会員情報オブジェクトが存在するなら...
+  if (member != undefined) {
+    member.points++
+  }
+}
+
 interface Member {
   id: number
   name: string
@@ -48,6 +58,7 @@ interface Member {
       v-bind:email="member.email"
       v-bind:points="member.points"
       v-bind:note="member.note"
+      v-on:incrementPoint="onIncrementPoint"
     />
   </section>
 </template>
