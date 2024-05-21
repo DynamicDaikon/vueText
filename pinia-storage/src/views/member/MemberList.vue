@@ -14,6 +14,7 @@
 
     <section>
       <ul>
+        <li v-if="isEmptyList">会員情報は存在しません。</li>
         <li v-for="[id, member] in memberList" v-bind:key="id">
           <RouterLink v-bind:to="{ name: 'MemberDetail', params: { id: id } }">
             IDが{{ id }}の{{ member.name }}さん
@@ -31,8 +32,12 @@ import type { Member } from '@/interfaces'
 import { useMembersStore } from '@/stores/member'
 
 const memberStore = useMembersStore()
+memberStore.prepareMemberList()
 const memberList = computed((): Map<number, Member> => {
   return memberStore.memberList
+})
+const isEmptyList = computed((): boolean => {
+  return memberStore.isMemberListEmpty
 })
 </script>
 
